@@ -4,7 +4,8 @@ const About = () =>{
     return(
         <div className="about">
             <h2 className="about__title">About</h2>
-            <p style={{marginBottom: "525px"}}>This blog is about React project!</p>
+            <p style={{marginBottom: "15px"}}>This blog is about React project!</p>
+
         </div>
     )
 }

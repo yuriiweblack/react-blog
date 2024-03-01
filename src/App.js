@@ -6,6 +6,7 @@ import Home from './Home';
 import Layout from './Layout';
 import About from './About';
 import Missing from './Missing';
+import PostPage from './PostPage';
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
 
   ]);
 
+  // const [posts, setPosts] = useState([])
+
   const [search, setSearch] = useState("");
   const [searchResalt, setSearchResalt] = useState([]);
 
@@ -56,8 +59,13 @@ function App() {
        search={search}
        setSearch={setSearch}
        />}>
+
+      <Route path='post'>
+       <Route path=':id' element={<PostPage posts={posts}/>}/>
+      </Route>
         <Route index element={<Home posts={posts}/>}/>
         <Route path='about' element={<About />}/>
+        <Route path='*' element={<Missing />}/>
         
       </Route>
     </Routes>
