@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { Routes, Route,useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
 import Home from './Home';
@@ -7,6 +7,7 @@ import Layout from './Layout';
 import About from './About';
 import Missing from './Missing';
 import PostPage from './PostPage';
+import NewPost from './NewPost';
 
 function App() {
 
@@ -48,8 +49,16 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [searchResalt, setSearchResalt] = useState([]);
+  const [postTitle, setpostTitle] = useState("");
+  const [postBody, setpostBody] = useState("");
 
+  const navigate = useNavigate()
 
+  const handleDelete = id => {
+    const postList = posts.filter(post => post.id !== id)
+    setPosts(postList)
+    navigate("/")
+  }
 
   return (
     
@@ -61,7 +70,17 @@ function App() {
        />}>
 
       <Route path='post'>
-       <Route path=':id' element={<PostPage posts={posts}/>}/>
+        <Route index element={<NewPost
+          postTitle={postTitle}
+          setpostTitle={setpostTitle}
+          postBody={postBody}
+          setpostBody={setpostBody}
+        />}/>
+       <Route path=':id' element={<PostPage 
+        posts={posts}
+        handleDelete={handleDelete}
+        
+       />}/>
       </Route>
         <Route index element={<Home posts={posts}/>}/>
         <Route path='about' element={<About />}/>
