@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import './App.css';
 import Home from './Home';
@@ -42,6 +43,7 @@ function App() {
       datetime: "July 09, 2023 16:25:25 PM",
       body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe aspernatur culpa explicabo obcaecati in cupiditate"
     }
+   
 
   ]);
 
@@ -60,6 +62,30 @@ function App() {
     navigate("/")
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const datetime = format(new Date(),'MMMM do yyyy, h:mm:ss a');
+    // alert(datetime)
+    const newPost = {
+      id,
+      title: postTitle,
+      body: postBody,
+      datetime
+    }
+
+    const allPost = [...posts, newPost]
+    setPosts(allPost)
+    setpostTitle("")
+    setpostBody("")
+    navigate("/")
+
+  }
+
+// console.log(posts[posts.length - 1].id + 1)
+// let datetime = format(new Date(),'MMMM do yyyy, h:mm:ss a')
+// console.log(datetime)
+
   return (
     
     <Routes>
@@ -75,6 +101,7 @@ function App() {
           setpostTitle={setpostTitle}
           postBody={postBody}
           setpostBody={setpostBody}
+          handleSubmit = {handleSubmit}
         />}/>
        <Route path=':id' element={<PostPage 
         posts={posts}
